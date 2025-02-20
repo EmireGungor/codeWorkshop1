@@ -1,32 +1,22 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public float spawnTimer = 5f;
-    public Transform[] spawnPoints;
+    public float spawnTimer = 10f;
+    public Vector2 spawnRangeX = new(-10f, 10f);
+    public float spawnY = 0f;
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemies());
-    }
-
-    private IEnumerator SpawnEnemies()
-    {
-        while (true)
-        {
-            SpawnEnemy();
-            yield return new WaitForSeconds(spawnTimer);
-        }
+        InvokeRepeating(nameof(SpawnEnemy), 0f, spawnTimer);
     }
 
     private void SpawnEnemy()
     {
-        int spawnIndex = Random.Range(0, spawnPoints.Length);
-        Transform spawnPoint = spawnPoints[spawnIndex];
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        float randomX = Random.Range(spawnRangeX.x, spawnRangeX.y);
+        Vector3 spawnPosition = new(randomX, spawnY, 0f);
+
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }
-

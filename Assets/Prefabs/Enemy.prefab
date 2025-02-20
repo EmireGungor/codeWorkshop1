@@ -49,11 +49,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2855859945314142201}
-  spawnTimer: 5
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spawnTimer: 10
+  spawnRangeX: {x: -10, y: 10}
+  spawnY: 0
 --- !u!114 &5233638017070221538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +64,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdbaf5afc6d8dc4d965e3edd19f01f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemySpeed: 5
+  xLimit: 10
 --- !u!212 &3733379313511813357
 SpriteRenderer:
   m_ObjectHideFlags: 0

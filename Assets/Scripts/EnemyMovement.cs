@@ -3,48 +3,26 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public float enemySpeed = 5f;
-    public Rigidbody2D rb;
-    public Transform leftBoundary; // Left boundary point
-    public Transform rightBoundary; // Right boundary point
+    [SerializeField] float xLimit = 10f;
 
-    private bool movingRight = true;
+    private int direction = 1;
 
-    private void Start()
+    void Update()
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
+        Vector3 movement = new Vector2(enemySpeed, transform.position.y);
+        transform.Translate(direction * Time.deltaTime * movement);
 
-    private void Update()
-    {
-        Move();
-    }
-
-    private void Move()
-    {
-        if (movingRight)
+        if (transform.position.x >= xLimit)
         {
-            rb.linearVelocity = new Vector2(enemySpeed, rb.linearVelocity.y);
-            if (transform.position.x >= rightBoundary.position.x)
-            {
-                movingRight = false;
-                Flip();
-            }
+            direction = -1;
         }
-        else
+        else if (transform.position.x <= -xLimit)
         {
-            rb.linearVelocity = new Vector2(-enemySpeed, rb.linearVelocity.y);
-            if (transform.position.x <= leftBoundary.position.x)
-            {
-                movingRight = true;
-                Flip();
-            }
+            direction = 1;
         }
-    }
-
-    private void Flip()
-    {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
     }
 }
+
+
+
+    
