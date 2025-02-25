@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     [System.Obsolete]
     void Die()
     {
-        Debug.Log("Player died");
+        Debug.Log("Player GG :)");
         DestroyObject(gameObject);
       
     }

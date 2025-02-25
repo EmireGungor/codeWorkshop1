@@ -20,3 +20,4 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }
+//Lanet olsun olmuyor!!!
