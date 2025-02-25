@@ -3,31 +3,20 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [Header("Enemy Attack Settings")]
-    public Transform player; 
-    public float followSpeed = 2f; 
-    public float attackRange = 1.5f; 
-    public float attackCooldown = 1f; 
+    public Transform player;
+    public float attackRange = 1.5f;
+    public float attackCooldown = 1f;
 
     private float lastAttackTime;
 
     void Start()
     {
-        lastAttackTime = -attackCooldown; // Initialize last attack time
+        lastAttackTime = -attackCooldown;
     }
 
     void Update()
     {
-        FollowPlayer();
         AttackPlayer();
-    }
-
-    void FollowPlayer()
-    {
-        if (player != null)
-        {
-            Vector3 direction = (player.position - transform.position).normalized;
-            transform.position += followSpeed * Time.deltaTime * direction;
-        }
     }
 
     void AttackPlayer()
@@ -36,8 +25,44 @@ public class EnemyAttack : MonoBehaviour
         {
             if (Time.time >= lastAttackTime + attackCooldown)
             {
+                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(10);
+                }
+
                 lastAttackTime = Time.time;
             }
         }
     }
 }
+
+/* First code;
+ 
+  using UnityEngine;
+
+public class EnemyAttack : MonoBehaviour
+{
+    [Header("Enemy Attack Settings")]
+    public Transform player;
+    public float attackRange = 1.5f;
+
+    void Update()
+    {
+        AttackPlayer();
+    }
+
+    void AttackPlayer()
+    {
+        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange)
+        {
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(10);
+            }
+        }
+    }
+}
+
+ */
